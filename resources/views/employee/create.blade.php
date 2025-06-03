@@ -1,4 +1,70 @@
 @extends('layouts.index')
 @section('content')
-    employee create
+<form class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold" action="">
+    <h1 class="text-center text-[20px] font-bold">Create New Employee</h1>
+    <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:!w-3/4 *:*:first:w-1/4 divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
+        <div class="flex justify-between items-center">
+            <label for="company">Name:</label>
+            <input name="company" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="text">
+        </div>
+        <div class="flex justify-between items-center">
+            <label for="description">Description:</label>
+            <input name="description" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="text">
+        </div>
+        <div class="flex justify-between items-center">
+            <label for="division">Division:</label>
+            <div class="w-full py-[2px] pr-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+                <select name="division" class="select-division">
+                    <option value=""></option>
+                    <option value="division">Division 1</option>
+                    <option value="division">Division 2</option>
+                    <option value="division">Division 3</option>
+                    <option value="division">Division 4</option>
+                    <option value="division">Division 5</option>
+                    <option value="division">Division 6</option>
+                </select>
+            </div>
+        </div>
+        <div id="select-position" class="flex justify-between items-center">
+            <label for="position">Position:</label>
+            <div class="w-full py-[2px] pr-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+                <select name="position" class="select-position">
+                    <option value=""></option>
+                    <option value="position">position 1</option>
+                    <option value="position">position 2</option>
+                    <option value="position">position 3</option>
+                    <option value="position">position 4</option>
+                    <option value="position">position 5</option>
+                    <option value="position">position 6</option>
+                </select>
+            </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <label for="photo">Photo:</label>
+            <input name="photo" class="file:border-r-2 file:border-dark file:pr-[5px] py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="file">
+        </div>
+    </div>
+    <div class="flex justify-between items-center">
+        <a class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min" href="{{ route('employee.index') }}"><x-fas-arrow-left-long class="size-[18px]"/>Back</a>
+        <button type="submit" class="cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min"><x-fas-check class="size-[16px]"/> Submit</button>
+    </div>
+</form>
+<script type="module">
+    $(document).ready(function() {
+        $('.select-position').select2({
+            placeholder: "Select Position",
+            theme: 'tailwindcss-2',
+            allowClear: true,
+            scrollAfterSelect: true,
+            width: '100%',
+        });
+        $('.select-division').select2({
+            placeholder: "Select Division",
+            theme: 'tailwindcss-2',
+            allowClear: true,
+            scrollAfterSelect: true,
+            width: '100%',
+        });
+    });
+</script>
 @endsection
