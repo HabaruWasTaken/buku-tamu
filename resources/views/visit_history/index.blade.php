@@ -1,17 +1,18 @@
 @extends('layouts.index')
+
 @section('content')
     <form class="mt-[25px] flex justify-end gap-[15px]">
         <div class="group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
             <x-fas-magnifying-glass class="size-[16px]"/>
-            <input class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="text" placeholder="Search Visitation" size="15">
+            <input class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Visitation" size="15">
         </div>
         <div class="group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
             <x-fas-magnifying-glass class="size-[16px]"/>
-            <input class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="text" placeholder="Search Company" size="15">
+            <input class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Company" size="15">
         </div>
         <div class="relative group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
             <x-fas-calendar class="size-[16px]"/>
-            <input id="inputdate" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="text" placeholder="dd-mm-yyyy" size="10">
+            <input id="inputdate" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="dd-mm-yyyy" size="10">
             <div id="datepicker" class="absolute h-[6px] w-full top-full left-0"></div>
         </div>
         <a class="flex items-center font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-dark hover:text-secondary" href="{{ route('visit_history.create') }}"><x-fas-circle-plus class="size-[16px] mr-[5px]"/>Add</a>
@@ -62,8 +63,11 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+@endsection
+
+@push('scripts')
+    <script type="module">
+        $(document).ready(function () {
             flatpickr("#inputdate", {
                 dateFormat: "d-m-Y",
                 position: "auto center",
@@ -75,4 +79,4 @@
             });
         });
     </script>
-@endsection
+@endpush

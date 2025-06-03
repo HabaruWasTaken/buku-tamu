@@ -272,4 +272,3 @@ function unformat_number($number)
     $number = str_replace(',', '.', $number);
     return $number;
 }
-
