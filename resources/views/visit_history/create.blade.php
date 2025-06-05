@@ -27,7 +27,7 @@
             <div class="flex justify-between items-center">
                 <label for="position">Employee:</label>
                 <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
-                    <select name="employee" class="select-employee">
+                    <select name="employee" class="select-employee-light">
                         <option value=""></option>
                         <option value="employee">employee 1</option>
                         <option value="employee">employee 2</option>
@@ -44,8 +44,8 @@
             </div>
         </div>
         <div class="flex justify-between items-center">
-            <a class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min" href="{{ route('visit_history.index') }}"><x-fas-arrow-left-long class="size-[18px]"/>Back</a>
-            <button type="submit" class="cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min"><x-fas-check class="size-[16px]"/> Submit</button>
+            <a class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min" href="{{ route('employee.index') }}"><icon class="fa-solid fa-arrow-left-long size-[16px]"></icon>Back</a>
+            <button type="submit" class="cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min"><icon class="fa-solid fa-check size-[16px]"></icon>Submit</button>
         </div>
     </form>
 @endsection
@@ -53,7 +53,6 @@
 @push('scripts')
     <script type="module">
         $(document).ready(function() {
-            console.log('test')
             flatpickr("#timepicker", {
                 enableTime: true,
                 allowInput: true,
@@ -70,17 +69,11 @@
                 allowInput: true,
                 maxDate: "today",
                 positionElement: document.querySelector("#datepicker"),
-                nextArrow: '<x-fas-angle-right class="size-[18px]"/>',
-                prevArrow: '<x-fas-angle-left class="size-[18px]"/>',
+                nextArrow: '<icon class="fa-solid fa-angle-right size-[18px]"></icon>',
+                prevArrow: '<icon class="fa-solid fa-angle-left size-[18px]"></icon>',
                 defaultDate: flatpickr.formatDate(new Date(), "d-m-Y"),
             });
-            $('.select-employee').select2({
-                placeholder: "Select Employee",
-                theme: 'tailwindcss-2',
-                allowClear: true,
-                scrollAfterSelect: true,
-                width: '100%',
-            });
+
         });
     </script>
 @endpush

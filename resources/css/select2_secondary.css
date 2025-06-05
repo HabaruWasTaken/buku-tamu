@@ -13,7 +13,7 @@
 }
 
 .select2-container--tailwindcss-3.select2-container--open .select2-dropdown--above {
-    @apply origin-bottom;
+    @apply !origin-top;
 }
 
 /* Search box */

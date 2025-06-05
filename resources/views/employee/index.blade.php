@@ -1,38 +1,40 @@
 @extends('layouts.index')
 
 @section('content')
-    <form class="mt-[25px] flex justify-end gap-[15px]">
-        <div class="group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
-            <x-fas-magnifying-glass class="size-[16px]" />
-            <input class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
-        </div>
-        <div class="min-w-fit group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 *:flex *:items-center" size="15">
-            <select class="select-position w-full" style="width: 100%">
-                <option value=""></option>
-                <option value="position">position 1</option>
-                <option value="position">position 2</option>
-                <option value="position">position 3</option>
-                <option value="position">position 4</option>
-                <option value="position">position 5</option>
-                <option value="position">position 6</option>
-            </select>
-        </div>
-        <div class="group flex items-center font-bold bg-secondary text-dark rounded-[6px] pl-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 *:flex *:items-center" size="15">
-            <select class="select-division w-full" style="width: 100%">
-                <option value=""></option>
-                <option value="division">Division 1</option>
-                <option value="division">Division 2</option>
-                <option value="division">Division 3</option>
-                <option value="division">Division 4</option>
-                <option value="division">Division 5</option>
-                <option value="division">Division 6</option>
-            </select>
-        </div>
-        <a class="flex items-center font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-dark hover:text-secondary" href="{{ route('employee.create') }}"><x-fas-circle-plus class="size-[16px] mr-[5px]" />Add</a>
-    </form>
-    <div class="flex flex-col items-center">
-        <div class="mt-[20px] mw-full border-3 border-secondary rounded-[10px] overflow-x-auto">
-            <table class="w-full text-dark text-[13px] table-fixed">
+    <div class="flex mt-[25px] items-end ml-[20px]">
+        
+        @include('layouts._table_header', ['name' => 'Data Employees', 'item' => 'Employee', 'total' => 1])
+        
+        <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
+            @include('layouts._input_search', ['placeholder' => 'Search Name', 'name' => 'name', 'size' => '15'])
+            <div class="min-w-fit group *:flex *:items-centerc *:last:has-[span]:[&.select2-container--open]:bg-dark *:last:has-[span]:[&.select2-container--open]:**:!text-secondary *:last:has-[span]:[&.select2-container--open]:**:has-[b]:*:content-['halo']" size="15">
+                <select name="position" class="select-position-secondary">
+                    <option value=""></option>
+                    <option value="position">position 1</option>
+                    <option value="position">position 2</option>
+                    <option value="position">position 3</option>
+                    <option value="position">position 4</option>
+                    <option value="position">position 5</option>
+                    <option value="position">position 6</option>
+                </select>
+            </div>
+            <div class="group *:flex *:items-center" size="15">
+                <select name="division" class="select-division-secondary">
+                    <option value=""></option>
+                    <option value="division">Division 1</option>
+                    <option value="division">Division 2</option>
+                    <option value="division">Division 3</option>
+                    <option value="division">Division 4</option>
+                    <option value="division">Division 5</option>
+                    <option value="division">Division 6</option>
+                </select>
+            </div>
+            @include('layouts._btn_a', ['route' => 'employee.create', 'icon' => 'circle-plus', 'text' => 'Add'])
+        </form>
+    </div>
+    <div class="mt-[20px] flex flex-col items-center gap-[10px]">
+        <div class="mw-full border-3 border-secondary rounded-[10px] overflow-x-auto bg-light text-dark">
+            <table class="w-full text-[13px] table-fixed">
                 <thead class="bg-secondary">
                     <tr class="*:text-start *:py-[8px] *:text-[14px] *:first:rounded-tl-[7px] *:last:rounded-tr-[7px] *:first:pl-[20px]">
                         <th>ID</th>
@@ -44,51 +46,18 @@
                     </tr>
                 </thead>
                 <tbody class="*:*:text-start *:*:py-[8px] divide-y-[2px] *:border-secondary *:hover:bg-hovered *:*:first:pl-[20px] bg-light *:last:*:first:rounded-bl-[7px] *:last:*:last:rounded-br-[7px] *:last:align-middle *:last:max-w-[210px] *:last:min-w-[150px]">
-                    {{-- @foreach (user as user) --}}
-                        <tr>
-                            <td>001</td>
-                            <td><div class="bg-secondary size-[50px] rounded-[6px]"></div></td>
-                            <td>John Doe</td>
-                            <td>Raja</td>
-                            <td>Aku</td>
-                            <td>
-                                <div class="flex gap-[10px] items-center justify-start min-w-0 !max-w-[210px] mx-auto flex-wrap">
-                                    <a class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-dark hover:outline-dark" href="{{ route('employee.edit', ['id' => 1]) }}"><x-fas-pen class="size-[16px] mr-[5px]" />Edit</a>
-                                    <a class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-dark hover:outline-dark" href="{{ route('employee.destroy', ['id' => 1]) }}"><x-fas-trash class="size-[16px] mr-[5px]" />Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    {{-- @endforeach --}}
+                    <tr>
+                        <td>001</td>
+                        <td><a href="{{ asset('user-tie-solid.svg') }}" target="_blank"><img src="{{ asset('user-tie-solid.svg') }}" class="size-[32px] mr-[5px] p-[5px] rounded-[6px] bg-secondary text-dark"></a></td>
+                        <td>John Doe</td>
+                        <td>Raja</td>
+                        <td>Aku</td>
+                        @include('layouts._table_actions', ['buttons' => 'delete, edit', 'model' => 'employee'])
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div>
-            <div class="text-[18px] border-secondary border-[2px] mt-[10px] rounded-[10px] flex items-center *:first:rounded-l-[8px] *:last:rounded-r-[8px] *:bg-secondary text-dark *h-full *py-[3px] *:px-[12px] *:hover:text-secondary *:hover:bg-dark *:transition-all *:duration-300 border-dark divide-x-[2px]">
-                <a href="#" class="py-[4.5px]"><x-fas-chevron-left class="size-[18px]" /></a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#" class="py-[4.5px]"><x-fas-chevron-right class="size-[18px]" /></a>
-            </div>
-        </div>
+
+        @include('layouts._pagination')
     </div>
 @endsection
-
-@push('scripts')
-    <script type="module">
-        $(document).ready(function() {
-            $('.select-division').select2({
-                placeholder: "Select Division",
-                theme: 'tailwindcss-3',
-                allowClear: true,
-                scrollAfterSelect: true,
-            })
-            $('.select-position').select2({
-                placeholder: "Select Position",
-                theme: 'tailwindcss-3',
-                allowClear: true,
-                scrollAfterSelect: true,
-            })
-        });
-    </script>
-@endpush

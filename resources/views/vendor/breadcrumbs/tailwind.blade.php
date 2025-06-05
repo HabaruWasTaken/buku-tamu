@@ -11,7 +11,7 @@
             @endif
 
             @unless ($loop->last)
-                <x-fas-angles-right class="size-[16px]"/>
+                <icon class="fa-solid fa-angle-right size-[16px]"></icon>
             @endif
         @endforeach
     </div>
