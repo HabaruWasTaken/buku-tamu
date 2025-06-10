@@ -6,7 +6,7 @@
         @include('layouts._table_header', ['name' => 'Data Visit Histories', 'item' => 'Visitations', 'total' => 1])
         
         <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
-
+            @csrf
             @include('layouts._input_search', ['placeholder' => 'Search Visitation', 'name' => 'visitation', 'size' => '15'])
 
             @include('layouts._input_search', ['placeholder' => 'Search Company', 'name' => 'company', 'size' => '15'])
@@ -45,17 +45,39 @@
                     </tr>
                 </thead>
                 <tbody class="*:*:text-start *:*:py-[8px] divide-y-[2px] *:border-secondary *:hover:bg-gray-300/25 *:*:first:pl-[20px] bg-light *:last:*:first:rounded-bl-[7px] *:last:*:last:rounded-br-[7px]">
-                    <tr>
-                        <td>2023-10-01</td>
-                        <td>08:00</td>
-                        <td>17:00</td>
-                        <td>John Doe</td>
-                        <td>ABC Corp</td>
-                        <td>1234567890</td>
-                        <td>Jane Smith</td>
-                        <td>Meeting</td>
-                        @include('layouts._table_actions', ['buttons' => 'delete', 'model' => 'visit_history'])
-                    </tr>
+                    @foreach($visitHistories as $visitHistory)
+                        <tr>
+                            <td>{{ format_date($visitHistory->date) }}</td>
+                            <td>{{ format_time($visitHistory->time) }}</td>
+                            @if ($visitHistory->time_out !== null)
+                                <td>{{ format_time($visitHistory->time_out)}}</td>
+                            @else
+                                <td class="**:hover:text-dark **:hover:outline-dark">
+                                    <a onclick="toggle_modal()" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-circle-plus font-[16px] mr-[5px]"></i>Add</a>
+                                    <div id="add_modal" onclick="toggle_modal()" class="absolute bg-dark/25 hidden h-full w-full top-0 left-0 z-4 flex items-center justify-center">
+                                        <form action="{{ route('visit_history.update', $visitHistory->id) }}" method="post" onclick="toggle_modal()" class="flex flex-col gap-[10px] items-center bg-secondary p-[10px] rounded-[6px]">
+                                            @csrf
+                                            @method('put')
+                                            <div class="text-center text-[20px] font-bold">Add Time Out</div>
+                                            <div class="flex justify-between items-center gap-[5px]">
+                                                <label for="time_out">Time Out:</label>
+                                                <input id="timepicker" name="time_out" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+                                                <button type="submit" class="self-end cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[8px] py-[2px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min"><icon class="fa-solid fa-check size-[16px]"></icon>Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            @endif
+                            <td>{{ $visitHistory->name }}</td>
+                            <td>{{ $visitHistory->company }}</td>
+                            <td>{{ $visitHistory->phone }}</td>
+                            <td>{{ $visitHistory->employee_id }}</td>
+                            <td>{{ $visitHistory->description }}</td>
+                            <td class="**:hover:text-dark **:hover:outline-dark">
+                                <a onclick="delete_data({{ $visitHistory->id }})" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-trash font-[16px] mr-[5px]"></i>Delete</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -77,6 +99,26 @@
                 nextArrow: '<icon class="fa-solid fa-angle-right size-[18px]"></icon>',
                 prevArrow: '<icon class="fa-solid fa-angle-left size-[18px]"></icon>',
             });
+            flatpickr("#timepicker", {
+                enableTime: true,
+                allowInput: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                // defaultHour: flatpickr.formatDate(new Date(), "h"),
+                // defaultMinute: flatpickr.formatDate(new Date(), "i")
+            });
         });
+    </script>
+    <script>
+        const delete_data = (id) => {
+            $.post("{{ url('visit_history') }}/" + id, { _token: "{{ csrf_token() }}", _method: "delete" }, () => {
+                window.location.reload();
+            })
+        }
+
+        const toggle_modal = () => {
+            $('#add_modal').toggleClass('hidden');
+        }
     </script>
 @endpush

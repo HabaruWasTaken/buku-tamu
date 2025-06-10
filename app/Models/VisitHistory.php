@@ -9,15 +9,13 @@ class VisitHistory extends Model
     protected $table = 'visit_histories';
 
     protected $fillable = [
-        'employee_id',
-        'date',
-        'time',
-        'time_out',
         'name',
+        'date',
         'time',
         'time_out',
         'company',
         'phone',
+        'employee_id',
         'description'
     ];
 

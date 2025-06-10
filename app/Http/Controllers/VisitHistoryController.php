@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\VisitHistoryService;
 use Illuminate\Http\Request;
 
 class VisitHistoryController extends Controller
 {
+    protected $visitHistoryService;
+
+    public function __construct()
+    {
+        $this->visitHistoryService = new VisitHistoryService;
+    }
+
     public function index()
     {
-        return view('visit_history.index');
+        $visitHistories = $this->visitHistoryService->search();
+        return view('visit_history.index', compact('visitHistories'));
     }
 
     public function create()
@@ -18,21 +27,30 @@ class VisitHistoryController extends Controller
 
     public function store(Request $request)
     {
-        return redirect()->route('visit_history.index');
+
+        $request->merge([
+            'date' => unformat_date($request->date),
+            'time' => format_time($request->time, false)
+        ]);
+        $this->visitHistoryService->store($request->all());
+        return redirect()->route('visit_history.index');    
     }
 
     public function edit($id)
     {
-        return view('visit_history.edit');
+        $visitHistory = $this->visitHistoryService->find($id);
+        return view('visit_history.edit', compact('visitHistory'));
     }
 
     public function update(Request $request, $id)
     {
+        $this->visitHistoryService->update($request->all(), $id);
         return redirect()->route('visit_history.index');
     }
 
     public function destroy($id)
     {
+        $this->visitHistoryService->delete($id);
         return redirect()->route('visit_history.index');
     }
 }

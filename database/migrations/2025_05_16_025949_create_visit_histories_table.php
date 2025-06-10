@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('company');
             $table->string('phone');
-            $table->longText('desciption');
+            $table->longText('description');
             $table->timestamps();
         });
     }

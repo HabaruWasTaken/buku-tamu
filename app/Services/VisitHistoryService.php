@@ -23,27 +23,27 @@ class VisitHistoryService extends Service
         return $this->searchResponse($params, $visitHistory);
     }
     
-    public function find($column = 'id', $value)
+    public function find($value, $column = 'id')
     {
         return VisitHistory::where($column, $value)->first();
     }
     
-    public function store()
+    public function store($params)
     {
         return VisitHistory::create($params);
     }
     
-    public function update($id, $params)
+    public function update($params, $id)
     {
         $visitHistory = VisitHistory::find($id);
         $visitHistory->update($params);
         return $visitHistory;
     }
     
-    public function delete($id, $params)
+    public function delete($id)
     {
         $visitHistory = VisitHistory::find($id);
-        $visitHistory->delete($params);
+        $visitHistory->delete();
         return $visitHistory;
     }
 }

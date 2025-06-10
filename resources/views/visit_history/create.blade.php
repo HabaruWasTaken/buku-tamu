@@ -1,7 +1,8 @@
 @extends('layouts.index')
 
 @section('content')
-    <form class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold" action="">
+    <form action="{{ route('visit_history.store' )}}" method="post"class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold" action="">
+        @csrf
         <div class="text-center text-[20px] font-bold">Create New Visit History</div>
         <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:w-3/4 *:*:first:w-1/4 divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
             <div class="flex justify-between items-center">
@@ -13,8 +14,8 @@
                 <input id="datepicker" name="date" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
             </div>
             <div class="flex justify-between items-center">
-                <label for="timeIn">Time In:</label>
-                <input id="timepicker" name="timeIn" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+                <label for="time">Time In:</label>
+                <input id="timepicker" name="time" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
             </div>
             <div class="flex justify-between items-center">
                 <label for="company">Company:</label>
@@ -59,7 +60,7 @@
                 noCalendar: true,
                 dateFormat: "H:i",
                 time_24hr: true,
-                defaultDate: flatpickr.formatDate(new Date(), "h:i")
+                defaultDate: flatpickr.formatDate(new Date(), "H:i")
                 // defaultHour: flatpickr.formatDate(new Date(), "h"),
                 // defaultMinute: flatpickr.formatDate(new Date(), "i")
             });
