@@ -1,7 +1,8 @@
 @extends('layouts.index')
 
 @section('content')
-<form class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold" action="">
+<form action="{{ route('employee.store') }}" method="post" class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold">
+    @csrf
     <div class="text-center text-[20px] font-bold">Create New Employee</div>
     <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:!w-3/4 *:*:first:w-1/4 *:*:first:text-bold *:*:first:text-[16px] divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
         <div class="flex justify-between items-center">
@@ -9,20 +10,20 @@
             <input name="name" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
         </div>
         <div class="flex justify-between items-center">
-            <label for="description">Description:</label>
-            <input name="description" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+            <label for="no_id">ID:</label>
+            <input name="no_id" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
         </div>
         <div class="flex justify-between items-center">
             <label for="division">Division:</label>
             <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
                 <select name="division" class="select-division-light">
                     <option value=""></option>
-                    <option value="division">Division 1</option>
-                    <option value="division">Division 2</option>
-                    <option value="division">Division 3</option>
-                    <option value="division">Division 4</option>
-                    <option value="division">Division 5</option>
-                    <option value="division">Division 6</option>
+                    <option value="division-1">Division 1</option>
+                    <option value="division-2">Division 2</option>
+                    <option value="division-3">Division 3</option>
+                    <option value="division-4">Division 4</option>
+                    <option value="division-5">Division 5</option>
+                    <option value="division-6">Division 6</option>
                 </select>
             </div>
         </div>
@@ -31,12 +32,12 @@
             <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
                 <select name="position" class="select-position-light">
                     <option value=""></option>
-                    <option value="position">position 1</option>
-                    <option value="position">position 2</option>
-                    <option value="position">position 3</option>
-                    <option value="position">position 4</option>
-                    <option value="position">position 5</option>
-                    <option value="position">position 6</option>
+                    <option value="position-1">Position 1</option>
+                    <option value="position-2">Position 2</option>
+                    <option value="position-3">Position 3</option>
+                    <option value="position-4">Position 4</option>
+                    <option value="position-5">Position 5</option>
+                    <option value="position-6">Position 6</option>
                 </select>
             </div>
         </div>

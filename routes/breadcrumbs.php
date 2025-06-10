@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as Trail;
 
@@ -21,7 +22,7 @@ Breadcrumbs::for('employee.create', function (Trail $trail) {
 });
 
 // Employee Edit
-Breadcrumbs::for('employee.edit', function (Trail $trail, $employee) {
+Breadcrumbs::for('employee.edit', function (Trail $trail, Employee $employee) {
     $trail->parent('employee.index');
     $trail->push('Edit', route('employee.edit', $employee->id));
 });

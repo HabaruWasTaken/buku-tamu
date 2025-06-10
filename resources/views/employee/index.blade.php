@@ -6,6 +6,7 @@
         @include('layouts._table_header', ['name' => 'Data Employees', 'item' => 'Employee', 'total' => 1])
         
         <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
+            @csrf
             @include('layouts._input_search', ['placeholder' => 'Search Name', 'name' => 'name', 'size' => '15'])
             <div class="min-w-fit group *:flex *:items-centerc *:last:has-[span]:[&.select2-container--open]:bg-dark *:last:has-[span]:[&.select2-container--open]:**:!text-secondary *:last:has-[span]:[&.select2-container--open]:**:has-[b]:*:content-['halo']" size="15">
                 <select name="position" class="select-position-secondary">
@@ -46,14 +47,21 @@
                     </tr>
                 </thead>
                 <tbody class="*:*:text-start *:*:py-[8px] divide-y-[2px] *:border-secondary *:hover:bg-hovered *:*:first:pl-[20px] bg-light *:last:*:first:rounded-bl-[7px] *:last:*:last:rounded-br-[7px] *:last:align-middle *:last:max-w-[210px] *:last:min-w-[150px]">
-                    <tr>
-                        <td>001</td>
-                        <td><a href="{{ asset('user-tie-solid.svg') }}" target="_blank"><img src="{{ asset('user-tie-solid.svg') }}" class="size-[32px] mr-[5px] p-[5px] rounded-[6px] bg-secondary text-dark"></a></td>
-                        <td>John Doe</td>
-                        <td>Raja</td>
-                        <td>Aku</td>
-                        @include('layouts._table_actions', ['buttons' => 'delete, edit', 'model' => 'employee'])
-                    </tr>
+                    @foreach ($employees as $employee)
+                        <tr>
+                            <td>{{ $employee->no_id }}</td>
+                            <td><a href="{{ asset('user-tie-solid.svg') }}" target="_blank"><img src="{{ asset('user-tie-solid.svg') }}" class="size-[32px] mr-[5px] p-[5px] rounded-[6px] bg-secondary text-dark"></a></td>
+                            <td>{{ $employee->name }}</td>
+                            <td>{{ $employee->position }}</td>
+                            <td>{{ $employee->division }}</td>
+                            <td class="**:hover:text-dark **:hover:outline-dark">
+                                <div class="flex gap-[10px] items-center justify-start min-w-0 !max-w-[210px] mx-auto flex-wrap">
+                                    <a class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="{{ route('employee.edit', $employee->id) }}"><i class="fa-solid fa-pen font-[16px] mr-[5px]"></i>Edit</a>
+                                    <a onclick="delete_data({{ $employee->id }})" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-trash font-[16px] mr-[5px]"></i>Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -61,3 +69,13 @@
         @include('layouts._pagination')
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        let delete_data = (id) => {
+            $.post("{{ url('employee') }}/" + id, {_token: "{{ csrf_token() }}", _method: "delete"}, () => {
+                window.location.reload();
+            })
+        }
+    </script>
+@endpush

@@ -73,7 +73,6 @@
                 prevArrow: '<icon class="fa-solid fa-angle-left size-[18px]"></icon>',
                 defaultDate: flatpickr.formatDate(new Date(), "d-m-Y"),
             });
-
         });
     </script>
 @endpush

@@ -14,12 +14,12 @@
     @include('layouts._nav')
       
     <div class="bg-dark text-light mt-[25px] flex flex-col w-full px-[30px]">
-        <div class="text-[32px] font-semibold">{{Breadcrumbs::current()->title}}</div>
+        {{-- <div class="text-[32px] font-semibold">{{Breadcrumbs::current()->title}}</div>
         <div class="text-[16px] mb-[25px]">
             @if (!empty(Breadcrumbs::render()))
-                {{Breadcrumbs::render()}}
+                {{BreadcrumbsRoute::current()}}
             @endif
-        </div>
+        </div> --}}
 
         @yield('content')
         

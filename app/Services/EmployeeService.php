@@ -17,27 +17,27 @@ class EmployeeService extends Service
         return $this->searchResponse($params, $employee);
     }
     
-    public function find($column = 'id', $value)
+    public function find($value, $column = 'id')
     {
         return Employee::where($column, $value)->first();
     }
     
-    public function store()
+    public function store($params)
     {
         return Employee::create($params);
     }
     
-    public function update($id, $params)
+    public function update($params, $id)
     {
         $employee = Employee::find($id);
         $employee->update($params);
         return $employee;
     }
     
-    public function delete($id, $params)
+    public function delete($id)
     {
         $employee = Employee::find($id);
-        $employee->delete($params);
+        $employee->delete();
         return $employee;
     }
 }
