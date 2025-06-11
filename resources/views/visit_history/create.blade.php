@@ -28,14 +28,11 @@
             <div class="flex justify-between items-center">
                 <label for="position">Employee:</label>
                 <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
-                    <select name="employee" class="select-employee-light">
+                    <select name="employee_id" class="select-employee-light">
                         <option value=""></option>
-                        <option value="employee">employee 1</option>
-                        <option value="employee">employee 2</option>
-                        <option value="employee">employee 3</option>
-                        <option value="employee">employee 4</option>
-                        <option value="employee">employee 5</option>
-                        <option value="employee">employee 6</option>
+                        @foreach ($employees as $employee)
+                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

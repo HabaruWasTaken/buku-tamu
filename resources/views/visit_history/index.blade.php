@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="flex mt-[25px] items-end ml-[20px]">
-
-        @include('layouts._table_header', ['name' => 'Data Visit Histories', 'item' => 'Visitations', 'total' => 1])
-        
+        <div class="w-full text-start text-light font-medium w-max">
+            <div class="text-[20px] font-bold text-nowrap">Data Visit Histories</div>
+            <div class="text-[14px]">Total Visitations: {{ $visitHistories->count() }}</div>
+        </div>
         <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
             @csrf
             @include('layouts._input_search', ['placeholder' => 'Search Visitation', 'name' => 'visitation', 'size' => '15'])
@@ -51,7 +52,7 @@
                             <td>{{ format_time($visitHistory->time) }}</td>
                             @if ($visitHistory->time_out !== null)
                                 <td>{{ format_time($visitHistory->time_out)}}</td>
-                            @else
+                            @elseif (date_difference(date("Y-m-d"), $visitHistory->date) == 1)
                                 <td class="**:hover:text-dark **:hover:outline-dark">
                                     <a onclick="toggle_modal()" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-circle-plus font-[16px] mr-[5px]"></i>Add</a>
                                     <div id="add_modal" onclick="toggle_modal()" class="absolute bg-dark/25 hidden h-full w-full top-0 left-0 z-4 flex items-center justify-center">
@@ -62,16 +63,18 @@
                                             <div class="flex justify-between items-center gap-[5px]">
                                                 <label for="time_out">Time Out:</label>
                                                 <input id="timepicker" name="time_out" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
-                                                <button type="submit" class="self-end cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[8px] py-[2px] gap-[5px] outline-secondary outline-2 transition-all duration-300 bg-dark text-secondary w-min"><icon class="fa-solid fa-check size-[16px]"></icon>Submit</button>
+                                                <button type="submit" class="self-end cursor-pointer flex items-center border-2 border-dark rounded-[8px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[8px] py-[2px] gap-[5px] transition-all duration-300 bg-dark text-secondary w-min"><icon class="fa-solid fa-check size-[16px]"></icon>Submit</button>
                                             </div>
                                         </form>
                                     </div>
                                 </td>
+                            @else
+                                <td class="text-center">-</td>
                             @endif
                             <td>{{ $visitHistory->name }}</td>
                             <td>{{ $visitHistory->company }}</td>
                             <td>{{ $visitHistory->phone }}</td>
-                            <td>{{ $visitHistory->employee_id }}</td>
+                            <td>{{ $visitHistory->employee->name }}</td>
                             <td>{{ $visitHistory->description }}</td>
                             <td class="**:hover:text-dark **:hover:outline-dark">
                                 <a onclick="delete_data({{ $visitHistory->id }})" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-trash font-[16px] mr-[5px]"></i>Delete</a>

@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="flex mt-[25px] items-end ml-[20px]">
-        
-        @include('layouts._table_header', ['name' => 'Data Employees', 'item' => 'Employee', 'total' => 1])
-        
+        <div class="w-full text-start text-light font-medium w-max">
+            <div class="text-[20px] font-bold text-nowrap">Data Employees</div>
+            <div class="text-[14px]">Total Employee: {{ $employees->count() }}</div>
+        </div>
         <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
             @csrf
             @include('layouts._input_search', ['placeholder' => 'Search Name', 'name' => 'name', 'size' => '15'])
@@ -50,15 +51,15 @@
                     @foreach ($employees as $employee)
                         <tr>
                             <td>{{ $employee->no_id }}</td>
-                            <td><a href="{{ asset('user-tie-solid.svg') }}" target="_blank"><img src="{{ asset('user-tie-solid.svg') }}" class="size-[32px] mr-[5px] p-[5px] rounded-[6px] bg-secondary text-dark"></a></td>
+                            <td><a href="{{ Storage::url($employee->photo) }}" target="_blank"><img src="{{ Storage::url($employee->photo) }}" class="size-[32px] mr-[5px] p-[5px] rounded-[6px] bg-secondary text-dark"></a></td>
                             <td>{{ $employee->name }}</td>
                             <td>{{ $employee->position }}</td>
                             <td>{{ $employee->division }}</td>
                             <td class="**:hover:text-dark **:hover:outline-dark">
                                 <div class="flex gap-[10px] items-center justify-start min-w-0 !max-w-[210px] mx-auto flex-wrap">
                                     <a class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="{{ route('employee.edit', $employee->id) }}"><i class="fa-solid fa-pen font-[16px] mr-[5px]"></i>Edit</a>
-                                    a onclick="delete_data({{ $employee->id }})" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-trash font-[16px] mr-[5px]"></i>Delete</a>
-                                </div><
+                                    <a onclick="delete_data({{ $employee->id }})" class="flex items-center w-min font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-transparent hover:text-secondary" href="javascript:void(0)"><i class="fa-solid fa-trash font-[16px] mr-[5px]"></i>Delete</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

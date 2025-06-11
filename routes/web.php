@@ -16,5 +16,5 @@ Route::delete('/employee/{id}', [App\Http\Controllers\EmployeeController::class,
 Route::get('/visit_history', [App\Http\Controllers\VisitHistoryController::class, 'index'])->name('visit_history.index');
 Route::get('/visit_history/create', [App\Http\Controllers\VisitHistoryController::class, 'create'])->name('visit_history.create');
 Route::post('visit_history', [App\Http\Controllers\VisitHistoryController::class, 'store'])->name('visit_history.store');
-Route::put('/employee/{id}', [App\Http\Controllers\VisitHistoryController::class, 'update'])->name('visit_history.update');
+Route::put('/visit_history/{id}', [App\Http\Controllers\VisitHistoryController::class, 'update'])->name('visit_history.update');
 Route::delete('/visit_history/{id}', [App\Http\Controllers\VisitHistoryController::class, 'destroy'])->name('visit_history.destroy');

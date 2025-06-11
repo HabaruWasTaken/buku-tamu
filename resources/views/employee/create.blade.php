@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-<form action="{{ route('employee.store') }}" method="post" class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold">
+<form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data" class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold">
     @csrf
     <div class="text-center text-[20px] font-bold">Create New Employee</div>
     <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:!w-3/4 *:*:first:w-1/4 *:*:first:text-bold *:*:first:text-[16px] divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
@@ -43,7 +43,7 @@
         </div>
         <div class="flex justify-between items-center">
             <label for="photo">Photo:</label>
-            <input name="photo" class="file:border-r-2 file:border-dark file:pr-[5px] py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" type="file">
+            <input type="file" accept="image/*" name="photo_profile" class="file:border-r-2 file:border-dark file:pr-[5px] py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
         </div>
     </div>
     <div class="flex justify-between items-center">

@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Services\VisitHistoryService;
+use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 
 class VisitHistoryController extends Controller
 {
     protected $visitHistoryService;
+    protected $employeeService;
 
     public function __construct()
     {
         $this->visitHistoryService = new VisitHistoryService;
+        $this->employeeService = new EmployeeService;
     }
-
+    
     public function index()
     {
         $visitHistories = $this->visitHistoryService->search();
@@ -22,12 +25,12 @@ class VisitHistoryController extends Controller
 
     public function create()
     {
-        return view('visit_history.create');
+        $employees = $this->employeeService->search();
+        return view('visit_history.create', compact('employees'));
     }
 
     public function store(Request $request)
     {
-
         $request->merge([
             'date' => unformat_date($request->date),
             'time' => format_time($request->time, false)
