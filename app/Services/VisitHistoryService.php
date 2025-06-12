@@ -19,6 +19,9 @@ class VisitHistoryService extends Service
         $employee_name = $params['employee_name'] ?? '';
         if ($employee_name !== '') $visitHistory = $visitHistory->whereHas('employee', fn($employee) => $employee->where('name', 'like', "%$employee_name%"));
 
+        $date = $params['date'] ?? '';
+        if ($date !== '') $params['date'] = unformat_date($date);
+
         $visitHistory = $this->searchFilter($params, $visitHistory, ['date']);
         return $this->searchResponse($params, $visitHistory);
     }

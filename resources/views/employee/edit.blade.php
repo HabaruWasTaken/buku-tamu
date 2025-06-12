@@ -6,14 +6,10 @@
         @csrf
         @method('put')
         <div class="text-center text-[20px] font-bold">Edit Employee</div>
-        <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:!w-3/4 *:*:first:w-1/4 *:*:first:text-bold *:*:first:text-[16px] divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
+        <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:w-3/4 *:*:first:w-1/4 *:*:first:text-bold *:*:first:text-[16px] divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
             <div class="flex justify-between items-center">
                 <label for="name">Name:</label>
                 <input value="{{ $employee->name }}" name="name" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
-            </div>
-            <div class="flex justify-between items-center">
-                <label for="no_id">ID:</label>
-                <input value="{{ $employee->no_id }}" name="no_id" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
             </div>
             <div class="flex justify-between items-center">
                 <label for="division">Division:</label>
@@ -44,6 +40,9 @@
                         @endfor
                     </select>
                 </div>
+            </div>
+            <div class="flex justify-center w-full">
+                <a href="{{ Storage::url($employee->photo) }}" target="_blank" class="!w-full flex justify-center"><img src="{{ Storage::url($employee->photo) }}" class="h-[150px]"></a>
             </div>
             <div class="flex justify-between items-center">
                 <label for="photo">Photo:</label>

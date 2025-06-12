@@ -17,9 +17,9 @@ class VisitHistoryController extends Controller
         $this->employeeService = new EmployeeService;
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $visitHistories = $this->visitHistoryService->search();
+        $visitHistories = $this->visitHistoryService->search($request);
         return view('visit_history.index', compact('visitHistories'));
     }
 

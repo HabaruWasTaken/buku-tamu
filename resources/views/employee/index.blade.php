@@ -6,31 +6,32 @@
             <div class="text-[20px] font-bold text-nowrap">Data Employees</div>
             <div class="text-[14px]">Total Employee: {{ $employees->count() }}</div>
         </div>
-        <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
-            @csrf
-            @include('layouts._input_search', ['placeholder' => 'Search Name', 'name' => 'name', 'size' => '15'])
-            <div class="min-w-fit group *:flex *:items-centerc *:last:has-[span]:[&.select2-container--open]:bg-dark *:last:has-[span]:[&.select2-container--open]:**:!text-secondary *:last:has-[span]:[&.select2-container--open]:**:has-[b]:*:content-['halo']" size="15">
+        <form method="get" class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
+            <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
+                <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
+                <input name="no_id" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search No ID" size="15">
+            </div>
+            <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
+                <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
+                <input name="name" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
+            </div>
+            <div class="min-w-fit group *:flex *:items-center" size="15">
                 <select name="position" class="select-position-secondary">
                     <option value=""></option>
-                    <option value="position">position 1</option>
-                    <option value="position">position 2</option>
-                    <option value="position">position 3</option>
-                    <option value="position">position 4</option>
-                    <option value="position">position 5</option>
-                    <option value="position">position 6</option>
+                    @for ($i = 1; $i <= 6; $i++)
+                        <option value="position-{{ $i }}">Position {{ $i }}</option>
+                    @endfor
                 </select>
             </div>
             <div class="group *:flex *:items-center" size="15">
                 <select name="division" class="select-division-secondary">
                     <option value=""></option>
-                    <option value="division">Division 1</option>
-                    <option value="division">Division 2</option>
-                    <option value="division">Division 3</option>
-                    <option value="division">Division 4</option>
-                    <option value="division">Division 5</option>
-                    <option value="division">Division 6</option>
+                    @for ($i = 1; $i <= 6; $i++)
+                        <option value="division-{{ $i }}">Division {{ $i }}</option>
+                    @endfor
                 </select>
             </div>
+            <button type="submit">Search</button>
             @include('layouts._btn_a', ['route' => 'employee.create', 'icon' => 'circle-plus', 'text' => 'Add'])
         </form>
     </div>
@@ -39,7 +40,7 @@
             <table class="w-full text-[13px] table-fixed">
                 <thead class="bg-secondary">
                     <tr class="*:text-start *:py-[8px] *:text-[14px] *:first:rounded-tl-[7px] *:last:rounded-tr-[7px] *:first:pl-[20px]">
-                        <th>ID</th>
+                        <th>No ID</th>
                         <th>Photo</th>
                         <th>Name</th>
                         <th>Position</th>

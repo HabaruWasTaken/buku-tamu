@@ -15,9 +15,9 @@ class EmployeeController extends Controller
         $this->employeeService = new EmployeeService();
     }
 
-    public function index()
+    public function index(Request $request)
     {  
-        $employees = $this->employeeService->search();
+        $employees = $this->employeeService->search($request);
         return view('employee.index', compact('employees'));
     }
 
@@ -28,8 +28,12 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
+        $no_id = $this->employeeService->getID($request);
+        $request->merge(['no_id' => $no_id]);
+
         $filename = DocumentService::save_file($request, 'photo_profile', 'public/profiles');
         if ($filename !== '') $request->merge(['photo' => $filename]);
+
         $this->employeeService->store($request->all());
         return redirect()->route('employee.index');
     }
@@ -42,8 +46,12 @@ class EmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
+        $no_id = $this->employeeService->getID($request, $id);
+        $request->merge(['no_id' => $no_id]);
+
         $filename = DocumentService::save_file($request, 'photo_profile', 'public/profiles');
         if ($filename !== '') $request->merge(['photo' => $filename]);
+
         $this->employeeService->update($request->all(), $id);
         return redirect()->route('employee.index');
     }

@@ -10,20 +10,13 @@
             <input name="name" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
         </div>
         <div class="flex justify-between items-center">
-            <label for="no_id">ID:</label>
-            <input name="no_id" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
-        </div>
-        <div class="flex justify-between items-center">
             <label for="division">Division:</label>
             <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
                 <select name="division" class="select-division-light">
                     <option value=""></option>
-                    <option value="division-1">Division 1</option>
-                    <option value="division-2">Division 2</option>
-                    <option value="division-3">Division 3</option>
-                    <option value="division-4">Division 4</option>
-                    <option value="division-5">Division 5</option>
-                    <option value="division-6">Division 6</option>
+                    @for ($i = 1; $i <= 6; $i++)
+                        <option value="division-{{ $i }}">Division {{ $i }}</option>
+                    @endfor
                 </select>
             </div>
         </div>
@@ -32,12 +25,9 @@
             <div class="w-full py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
                 <select name="position" class="select-position-light">
                     <option value=""></option>
-                    <option value="position-1">Position 1</option>
-                    <option value="position-2">Position 2</option>
-                    <option value="position-3">Position 3</option>
-                    <option value="position-4">Position 4</option>
-                    <option value="position-5">Position 5</option>
-                    <option value="position-6">Position 6</option>
+                    @for ($i = 1; $i <= 6; $i++)
+                        <option value="position-{{ $i }}">Position {{ $i }}</option>
+                    @endfor
                 </select>
             </div>
         </div>

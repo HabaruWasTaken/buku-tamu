@@ -40,4 +40,27 @@ class EmployeeService extends Service
         $employee->delete();
         return $employee;
     }
+
+    public function getID($request, $id = ''){
+        $position = explode("-", $request->position)[1];
+        $division = explode("-", $request->division)[1];
+        $divisions = [
+            '1' => 'A',
+            '2' => 'B',
+            '3' => 'C',
+            '4' => 'D',
+            '5' => 'E',
+            '6' => 'F',
+        ];
+        $divisions[$division];
+        $no_id = Employee::orderByDesc('id');
+        if ($id !== '') {
+            $no_id = $no_id->where('id', $id)->first()->id;  
+        } else {
+            $no_id = $no_id->first()->id;  
+        }
+        $newNumber = str_pad($no_id + 1, 3, '0', STR_PAD_LEFT);
+        $no_id = $divisions[$division] . $position . now()->format('y') . $newNumber;
+        return $no_id;
+    }
 }

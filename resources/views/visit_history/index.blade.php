@@ -6,17 +6,21 @@
             <div class="text-[20px] font-bold text-nowrap">Data Visit Histories</div>
             <div class="text-[14px]">Total Visitations: {{ $visitHistories->count() }}</div>
         </div>
-        <form class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
-            @csrf
-            @include('layouts._input_search', ['placeholder' => 'Search Visitation', 'name' => 'visitation', 'size' => '15'])
-
-            @include('layouts._input_search', ['placeholder' => 'Search Company', 'name' => 'company', 'size' => '15'])
-            
+        <form method="get" class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
+            <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
+                <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
+                <input name="name" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
+            </div>
+            <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
+                <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
+                <input name="company" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Company" size="15">
+            </div>
             <div class="relative group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <icon class="fa-solid fa-calendar text-[16px]"></icon>
                 <input name="date" id="inputdate" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="dd-mm-yyyy" size="10">
                 <div id="datepicker" class="absolute h-[6px] w-full top-full left-0"></div>
             </div>
+            <button type="submit">Search</button>
 
             @include('layouts._btn_a', ['route' => 'visit_history.create', 'icon' => 'circle-plus', 'text' => 'Add'])
             
