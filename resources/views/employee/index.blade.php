@@ -9,17 +9,21 @@
         <form method="get" class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
             <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
-                <input name="no_id" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search No ID" size="15">
+                <input name="no_id" value="{{ request('no_id') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search No ID" size="15">
             </div>
             <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
-                <input name="name" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
+                <input name="name" value="{{ request('name') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
             </div>
             <div class="min-w-fit group *:flex *:items-center" size="15">
                 <select name="position" class="select-position-secondary">
                     <option value=""></option>
                     @for ($i = 1; $i <= 6; $i++)
-                        <option value="position-{{ $i }}">Position {{ $i }}</option>
+                        @if (request('position') == "position-".$i)
+                            <option value="position-{{ $i }}" selected="selected">Position {{ $i }}</option>
+                        @else
+                            <option value="position-{{ $i }}">Position {{ $i }}</option>
+                        @endif
                     @endfor
                 </select>
             </div>
@@ -27,7 +31,11 @@
                 <select name="division" class="select-division-secondary">
                     <option value=""></option>
                     @for ($i = 1; $i <= 6; $i++)
-                        <option value="division-{{ $i }}">Division {{ $i }}</option>
+                        @if (request('division') == "division-".$i)
+                            <option value="division-{{ $i }}" selected="selected">Division {{ $i }}</option>
+                        @else
+                            <option value="division-{{ $i }}">Division {{ $i }}</option>
+                        @endif
                     @endfor
                 </select>
             </div>
