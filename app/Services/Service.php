@@ -39,7 +39,7 @@ class Service
         $first = $params['first'] ?? '';
         if ($first !== '') return $model->first();
         $paginate = $params['paginate'] ?? '';
-        if ($paginate !== '') return $model->paginate($paginate);
+        if ($paginate !== '') return $model->paginate($paginate)->withQueryString();
 
         return $model->get();
     }

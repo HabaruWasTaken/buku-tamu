@@ -16,7 +16,8 @@ class EmployeeController extends Controller
     }
 
     public function index(Request $request)
-    {  
+    {
+        $request->merge(['paginate' => 10]);
         $employees = $this->employeeService->search($request);
         return view('employee.index', compact('employees'));
     }

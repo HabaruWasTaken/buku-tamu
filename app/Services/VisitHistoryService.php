@@ -22,6 +22,13 @@ class VisitHistoryService extends Service
         $date = $params['date'] ?? '';
         if ($date !== '') $params['date'] = unformat_date($date);
 
+        $range = $params['range'] ?? '';
+        if (($range !== '') && (count(explode(" to ", $range)) > 1)) {
+            $from = unformat_date(explode(" to ", $range)[0]);
+            $to = unformat_date(explode(" to ", $range)[1]);
+            $visitHistory = $visitHistory->whereBetween('date', [$from, $to]);
+        }
+
         $visitHistory = $this->searchFilter($params, $visitHistory, ['date']);
         return $this->searchResponse($params, $visitHistory);
     }

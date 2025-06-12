@@ -19,6 +19,7 @@ class VisitHistoryController extends Controller
     
     public function index(Request $request)
     {
+        $request->merge(['paginate' => 10]);
         $visitHistories = $this->visitHistoryService->search($request);
         return view('visit_history.index', compact('visitHistories'));
     }

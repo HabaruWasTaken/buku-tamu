@@ -1,24 +1,29 @@
 @extends('layouts.index')
 
 @section('content')
-    <div class="flex mt-[25px] items-end ml-[20px]">
+    <div class="flex items-end ml-[20px]">
         <div class="w-full text-start text-light font-medium w-max">
             <div class="text-[20px] font-bold text-nowrap">Data Visit Histories</div>
             <div class="text-[14px]">Total Visitations: {{ $visitHistories->count() }}</div>
         </div>
-        <form method="get" class="flex justify-end gap-[15px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
+        <form method="get" class="mb-[2px] flex justify-end gap-[10px] w-full h-min items-center flex-wrap flex justify-end gap-[15px] w-full h-min items-center flex-wrap *:not-has-[a]:flex *:not-has-[a]:items-center *:not-has-[a]:font-bold *:not-has-[a]:bg-secondary *:not-has-[a]:text-dark *:not-has-[a]:rounded-[6px] *:not-has-[a]:px-[16px] *:not-has-[a]:py-[6px] *:not-has-[a]:has-[select]:pr-[0px] *:not-has-[a]:gap-[5px] *:not-has-[a]:outline-secondary *:not-has-[a]:outline-2 *:not-has-[a]:transition-all *:not-has-[a]:duration-300">
             <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
-                <input name="name" value="{{ request('name') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="15">
+                <input name="name" value="{{ request('name') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Name" size="10">
             </div>
             <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <i class="fa-solid fa-magnifying-glass text-[16px]"></i>
-                <input name="company" value="{{ request('company') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Company" size="15">
+                <input name="company" value="{{ request('company') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Search Company" size="13">
             </div>
             <div class="relative group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
                 <icon class="fa-solid fa-calendar text-[16px]"></icon>
-                <input name="date" id="inputdate"  value="{{ format_date(request('date')) }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="dd-mm-yyyy" size="10">
+                <input name="date" id="inputdate"  value="{{ format_date(request('date')) }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Date" size="10">
                 <div id="datepicker" class="absolute h-[6px] w-full top-full left-0"></div>
+            </div>
+            <div class="relative group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
+                <icon class="fa-solid fa-calendar text-[16px]"></icon>
+                <input name="range" id="inputrange"  value="{{ request('range') }}" class="group-hover:placeholder:text-secondary group-hover:text-secondary focus:outline-none focus:text-secondary focus:placeholder:text-secondary/75 block min-w-0 grow text-base text-dark placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300" placeholder="Range Date" size="10">
+                <div id="rangepicker" class="absolute h-[6px] w-full top-full left-0"></div>
             </div>
             <button type="submit">Search</button>
 
@@ -33,7 +38,7 @@
             </div>
         </form>
     </div>
-    <div class="mt-[20px] flex flex-col items-center gap-[10px]">
+    <div class="mt-[10px] flex flex-col items-center gap-[10px]">
         <div class="min-w-full border-3 border-secondary rounded-[10px] overflow-x-auto">
             <table class="w-full text-dark text-[13px]">
                 <thead class="bg-secondary">
@@ -89,8 +94,7 @@
             </table>
         </div>
         
-        @include('layouts._pagination')
-
+        {{ $visitHistories->links() }}
     </div>
 @endsection
 
@@ -103,6 +107,16 @@
                 allowInput: true,
                 maxDate: "today",
                 positionElement: document.querySelector("#datepicker"),
+                nextArrow: '<icon class="fa-solid fa-angle-right size-[18px]"></icon>',
+                prevArrow: '<icon class="fa-solid fa-angle-left size-[18px]"></icon>',
+            });
+            flatpickr("#inputrange", {
+                mode: "range",
+                dateFormat: "d-m-Y",
+                position: "auto center",
+                allowInput: true,
+                maxDate: "today",
+                positionElement: document.querySelector("#rangepicker"),
                 nextArrow: '<icon class="fa-solid fa-angle-right size-[18px]"></icon>',
                 prevArrow: '<icon class="fa-solid fa-angle-left size-[18px]"></icon>',
             });

@@ -1,4 +1,4 @@
-<nav class="flex bg-primary py-[12px] px-[30px] text-light justify-between sticky z-3 w-full top-0">
+<nav class="flex bg-primary py-[8px] px-[30px] text-light justify-between sticky z-3 w-full top-0">
     <div class="flex items-center gap-[10px]">
         <div class=""><i class="fa-solid fa-book-bookmark text-[32px]"></i></div>
         <div class="flex flex-col">
