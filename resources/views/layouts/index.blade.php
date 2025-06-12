@@ -14,13 +14,22 @@
     @include('layouts._nav')
       
     <div class="bg-dark text-light mt-[25px] flex flex-col w-full px-[30px]">
-        {{-- <div class="text-[32px] font-semibold">{{Breadcrumbs::current()->title}}</div>
-        <div class="text-[16px] mb-[25px]">
-            @if (!empty(Breadcrumbs::render()))
-                {{BreadcrumbsRoute::current()}}
-            @endif
-        </div> --}}
-
+        @php
+            $current = Route::current()->action['as'];
+        @endphp
+        
+        @if (isset($employee) && !isset($employees))
+            <div class="text-[32px] font-semibold">{{explode(":", Breadcrumbs::generate($current, $employee)->last()->title)[0]}}</div>
+            <div class="text-[16px] mb-[25px]">
+                {{Breadcrumbs::render($current, $employee)}}
+            </div>
+        @else
+            <div class="text-[32px] font-semibold">{{Breadcrumbs::generate($current)->last()->title}}</div>
+            <div class="text-[16px] mb-[25px]">
+                {{Breadcrumbs::render($current)}}
+            </div>
+        @endif
+        
         @yield('content')
         
     </div>

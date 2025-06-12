@@ -1,6 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
+
     <form action="{{ route('employee.update', $employee->id) }}" method="post" enctype="multipart/form-data" class="bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[30px] mx-auto *:font-bold">
         @csrf
         @method('put')
