@@ -13,7 +13,7 @@
 
     @include('layouts._nav')
       
-    <div class="bg-dark text-light mt-[20px] flex flex-col w-full px-[30px]">
+    <div class="bg-dark text-light mt-[20px] flex flex-col w-full px-[30px] pb-[20px]">
         @php
             $current = Route::current()->action['as'];
         @endphp

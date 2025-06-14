@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VisitHistoriesExport;
 use App\Services\VisitHistoryService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VisitHistoryController extends Controller
 {
@@ -56,5 +58,10 @@ class VisitHistoryController extends Controller
     {
         $this->visitHistoryService->delete($id);
         return redirect()->route('visit_history.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new VisitHistoriesExport, 'visit_histories.xlsx');
     }
 }

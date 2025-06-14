@@ -4,7 +4,7 @@
     <div class="flex items-end ml-[20px]">
         <div class="w-full text-start text-light font-medium w-max">
             <div class="text-[20px] font-bold text-nowrap">Data Employees</div>
-            <div class="text-[14px]">Total Employee: {{ $employees->count() }}</div>
+            <div class="text-[14px]">Total Employee: {{ $employees->total() }}</div>
         </div>
         <form method="get" class="mb-[2px] flex justify-end gap-[10px] w-full h-min items-center flex-wrap *:flex *:items-center *:font-bold *:bg-secondary *:text-dark *:rounded-[6px] *:px-[16px] *:py-[6px] *:has-[select]:pr-[0px] *:gap-[5px] *:outline-secondary *:outline-2 *:transition-all *:duration-300">
             <div class="group has-[input:focus-within]:bg-dark has-[input:focus-within]:text-secondary hover:bg-dark hover:text-secondary">
@@ -77,6 +77,21 @@
         </div>
 
         {{ $employees->links() }}
+        <div>
+            <p class="text-sm text-light leading-5">
+                {!! __('Showing') !!}
+                @if ($employees->links()->paginator->firstItem())
+                    <span class="font-medium">{{ $employees->links()->paginator->firstItem() }}</span>
+                    {!! __('to') !!}
+                    <span class="font-medium">{{ $employees->links()->paginator->lastItem() }}</span>
+                @else
+                    {{ $employees->links()->paginator->count() }}
+                @endif
+                {!! __('of') !!}
+                <span class="font-medium">{{ $employees->links()->paginator->total() }}</span>
+                {!! __('results') !!}
+            </p>
+        </div>
     </div>
 @endsection
 

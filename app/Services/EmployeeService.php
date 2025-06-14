@@ -56,6 +56,8 @@ class EmployeeService extends Service
         $no_id = Employee::orderByDesc('id');
         if ($id !== '') {
             $no_id = $no_id->where('id', $id)->first()->id;  
+        } else if($no_id->first() === null) {
+            $no_id = 0;
         } else {
             $no_id = $no_id->first()->id;  
         }

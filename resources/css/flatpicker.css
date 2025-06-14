@@ -20,6 +20,18 @@
     @apply bg-dark! text-secondary! border-dark!;
 }
 
+.flatpickr-day.startRange {
+    @apply rounded-none! rounded-l-[6px]!;
+}
+
+.flatpickr-day.endRange {
+    @apply rounded-none! rounded-r-[6px]!;
+}
+
+.flatpickr-day.inRange {
+    @apply bg-dark! text-secondary! shadow-[-5px_0_0_#161616,5px_0_0_#161616]! rounded-none! border-none!;
+}
+
 .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:not(.nextMonthDay):hover {
     @apply bg-secondary/30! text-dark! border-secondary/30! cursor-not-allowed!;
 }

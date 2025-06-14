@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employee.index');
 Route::get('/employee/create', [App\Http\Controllers\EmployeeController::class, 'create'])->name('employee.create');
@@ -18,3 +16,4 @@ Route::get('/visit_history/create', [App\Http\Controllers\VisitHistoryController
 Route::post('visit_history', [App\Http\Controllers\VisitHistoryController::class, 'store'])->name('visit_history.store');
 Route::put('/visit_history/{id}', [App\Http\Controllers\VisitHistoryController::class, 'update'])->name('visit_history.update');
 Route::delete('/visit_history/{id}', [App\Http\Controllers\VisitHistoryController::class, 'destroy'])->name('visit_history.destroy');
+Route::get('/visit_history/export', [App\Http\Controllers\VisitHistoryController::class, 'export'])->name('visit_history.export');

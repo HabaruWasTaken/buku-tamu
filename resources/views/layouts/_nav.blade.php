@@ -1,8 +1,8 @@
-<nav class="flex bg-primary py-[8px] px-[30px] text-light justify-between sticky z-3 w-full top-0">
+<nav class="flex bg-primary py-[10px] px-[30px] text-light justify-between sticky z-3 w-full top-0">
     <div class="flex items-center gap-[10px]">
         <div class=""><i class="fa-solid fa-book-bookmark text-[32px]"></i></div>
         <div class="flex flex-col">
-            <div class="text-[20px] font-bold">Buku Tamu</div>
+            <div class="text-[20px] font-bold leading-none">Buku Tamu</div>
             <div class="text-[14px]">Admin Page</div>
         </div>
     </div>

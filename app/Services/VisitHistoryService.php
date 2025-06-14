@@ -8,7 +8,7 @@ class VisitHistoryService extends Service
 {
     public function search($params = [])
     {
-        $visitHistory = VisitHistory::orderBy('id');
+        $visitHistory = VisitHistory::orderBy('date', 'desc');
 
         $name = $params['name'] ?? '';
         if ($name !== '') $visitHistory = $visitHistory->where('name', 'like', "%$name%");
@@ -28,6 +28,11 @@ class VisitHistoryService extends Service
             $to = unformat_date(explode(" to ", $range)[1]);
             $visitHistory = $visitHistory->whereBetween('date', [$from, $to]);
         }
+
+        $year = $params['year'] ?? '';
+
+        $month = $params['month'] ?? '';
+        if ($month !== '') $visitHistory = VisitHistory::orderBy('id')->where('date', 'like', $year."-$month-%");
 
         $visitHistory = $this->searchFilter($params, $visitHistory, ['date']);
         return $this->searchResponse($params, $visitHistory);
@@ -55,5 +60,29 @@ class VisitHistoryService extends Service
         $visitHistory = VisitHistory::find($id);
         $visitHistory->delete();
         return $visitHistory;
+    }
+
+    public function getData($months = [], $year = 2025)
+    {
+        $first_month = $months['first'] ?? 1;
+        if ($first_month !== 1) $first_month = array_search($first_month, list_bulan())+1;
+
+        $last_month = $months['last'] ?? 12;
+        if ($last_month !== 12) $last_month = array_search($last_month, list_bulan())+1;
+
+        $data = [];
+        $months = [];
+        for ($i = $first_month; $i <= $last_month; $i++) {
+            $month = $i;
+            if ($month < 10) $month = "0" . $month;
+            $count = $this->search(['month' => $month, 'year' => $year])->count();
+            // if ($count !== 0) {
+            if (true) {
+                array_push($data, $count);
+                array_push($months, list_bulan()[$i-1]);
+            }
+        }
+
+        return (object)['data' => $data, 'months' => $months];
     }
 }
