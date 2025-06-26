@@ -16,7 +16,6 @@ class HomeController extends Controller
     }
 
     public function index(Request $request){
-        // dd($request->all());
         $employee_count = $this->employeeService->search(['count' => 1]);
         $visit_count = $this->visitHistoryService->search(['count' => 1]);
         $get_data = $this->visitHistoryService->getData([

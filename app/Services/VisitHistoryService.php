@@ -58,7 +58,11 @@ class VisitHistoryService extends Service
     public function delete($id)
     {
         $visitHistory = VisitHistory::find($id);
-        $visitHistory->delete();
+        try {
+            $visitHistory->delete();
+        } catch (\Exception $e) {
+            return ["error" => "Delete failed! This data currently being used."];
+        }
         return $visitHistory;
     }
 

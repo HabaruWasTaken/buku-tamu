@@ -15,16 +15,20 @@ class EmployeeController extends Controller
         $this->employeeService = new EmployeeService();
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $request->merge(['paginate' => 10]);
+        return view('employee.index');
+    }
+
+    public function search(Request $request)
+    {
         $employees = $this->employeeService->search($request);
-        return view('employee.index', compact('employees'));
+        return view('employee._table', compact('employees'));
     }
 
     public function create()
     {
-        return view('employee.create');
+        return view('employee._form');
     }
 
     public function store(Request $request)
@@ -35,14 +39,13 @@ class EmployeeController extends Controller
         $filename = DocumentService::save_file($request, 'photo_profile', 'public/profiles');
         if ($filename !== '') $request->merge(['photo' => $filename]);
 
-        $this->employeeService->store($request->all());
-        return redirect()->route('employee.index');
+        return $this->employeeService->store($request->all());
     }
 
     public function edit($id)
     {
         $employee = $this->employeeService->find($id);
-        return view('employee.edit', compact('employee'));
+        return view('employee._form', compact('employee'));
     }
 
     public function update(Request $request, $id)
@@ -53,15 +56,13 @@ class EmployeeController extends Controller
         $filename = DocumentService::save_file($request, 'photo_profile', 'public/profiles');
         if ($filename !== '') $request->merge(['photo' => $filename]);
 
-        $this->employeeService->update($request->all(), $id);
-        return redirect()->route('employee.index');
+        return $this->employeeService->update($request->all(), $id);
     }
 
     public function destroy($id)
     {
         $employee = $this->employeeService->find($id);
-        DocumentService::delete_file($employee->photo);
-        $this->employeeService->delete($id);
-        return redirect()->route('employee.index');
+        if (isset($employee->photo)) DocumentService::delete_file($employee->photo);
+        return $this->employeeService->delete($id);
     }
 }

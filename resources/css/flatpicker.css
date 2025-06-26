@@ -1,5 +1,5 @@
 .flatpickr-calendar {
-    @apply bg-secondary! rounded-[10px]! text-dark! font-montserrat! shadow-lg! p-[5px]! pt-[10px]! w-auto! flex! flex-col! gap-[5px]!;
+    @apply absolute! top-0 bg-secondary! rounded-[10px]! text-dark! font-montserrat! shadow-lg! p-[5px]! pt-[10px]! w-auto! flex! flex-col! gap-[5px]!;
 }
 
 .dayContainer {

@@ -37,7 +37,11 @@ class EmployeeService extends Service
     public function delete($id)
     {
         $employee = Employee::find($id);
-        $employee->delete();
+        try {
+            $employee->delete();
+        } catch (\Exception $e) {
+            return ["error" => "Failed to delete employee: \"".$employee->name."\"! This data currently being used."];
+        }
         return $employee;
     }
 

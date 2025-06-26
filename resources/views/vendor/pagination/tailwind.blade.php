@@ -4,7 +4,7 @@
             @if ($paginator->onFirstPage())
                 <div class="!text-dark/25 hover:!bg-secondary hover:!text-dark/25" ><i class="fa-solid fa-chevron-left"></i></div>
                 @else
-                <a href="{{ $paginator->previousPageUrl() }}" ><i class="fa-solid fa-chevron-left "></i></a>
+                <a onclick="search_data({{ $paginator->currentPage() - 1 }})" href="javascript:void(0)" ><i class="fa-solid fa-chevron-left"></i></a>
             @endif
 
             @foreach ($elements as $element)
@@ -17,14 +17,14 @@
                         @if ($page == $paginator->currentPage())
                             <div class="text-dark/25 hover:!bg-secondary hover:!text-dark/25">{{ $page }}</div>
                         @else
-                            <a href="{{ $url }}">{{ $page }}</a>
+                            <a onclick="search_data({{ $page }})" href="javascript:void(0)">{{ $page }}</a>
                         @endif
                     @endforeach
                 @endif
             @endforeach
 
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}"><i class="fa-solid fa-chevron-right "></i></a>
+                <a onclick="search_data({{ $paginator->currentPage() + 1 }})" href="javascript:void(0)"><i class="fa-solid fa-chevron-right "></i></a>
             @else
                 <div class="!text-dark/25 hover:!bg-secondary hover:!text-dark/25"><i class="fa-solid fa-chevron-right "></i></div>
             @endif

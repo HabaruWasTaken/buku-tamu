@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('position');
             $table->string('division');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

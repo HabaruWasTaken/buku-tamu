@@ -6,7 +6,7 @@
             <div class="text-[20px] text-dark bg-secondary leading-none p-[12px] rounded-[10px] font-bold">Total Visitation: {{ $visit_count }}</div>
             <div class="text-[20px] text-dark bg-secondary leading-none p-[12px] rounded-[10px] font-bold">Total Employee: {{ $employee_count }}</div>
         </div>
-        <div class="flex w-full gap-[20px] items-end flex-wrap lg:flex-nowrap">
+        <div class="flex w-full gap-[20px] items-start flex-wrap lg:flex-nowrap">
             <div class="lg:w-1/2 w-full flex flex-col justify-end">
                 <div class="font-medium text-[18px]">5 Lastest Visitations:</div>
                 <div class="border-3 border-secondary rounded-[10px] overflow-x-auto">
