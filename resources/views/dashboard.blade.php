@@ -80,7 +80,7 @@
                 <div class="flex flex-col gap-[10px] *:pb-[10px] *:gap-[20px] *:*:last:w-3/4 *:*:first:w-1/4 divide-y-2 border-b-2 border-dark *:flex *:justifybetween *:items-center">
                     <div class="flex justify-between items-center">
                         <label for="name">Name:</label>
-                        <input name="name" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
+                        <input id="input_name" name="name" class="py-[2px] px-[6px] rounded-[6px] bg-light text-dark border-2 border-dark focus-visible:outline-primary placeholder:text-dark placeholder:text-base placeholder:transition-all placeholder:duration-300 transition-all duration-300">
                     </div>
                     <div class="flex justify-between items-center">
                         <label for="company">Company:</label>
@@ -145,27 +145,25 @@
         </div>
     </div>
     <div id="modal_camera" class="hidden absolute bg-dark/25 h-full w-full top-0 left-0 z-4 flex items-center justify-center">
-        <div class="flex bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[10px] mx-auto *:font-bold items-center">
+        <form id="form_ocr" class="flex bg-secondary flex flex-col gap-[10px] p-[10px] rounded-[10px] text-dark w-fit min-w-1/2 gap-[10px] mx-auto *:font-bold items-center">
             <div class="text-center text-[20px] font-bold">Scan KTP</div>
             <div id="camera" class="bg-light w-[450px] h-[300px] relative border-3 border-dark">
                 <icon class="fa-solid fa-plus text-[32px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></icon>
+                <button class="size-[50px] bg-primary border-5 border-light rounded-full"></button>
             </div>
-            <button class="size-[50px] bg-primary border-5 border-light rounded-full"></button>
             <div class="flex w-full justify-between">
-                <button class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] transition-all duration-300 bg-dark text-secondary w-min" onclick="close_modal($modal_camera)"><icon class="fa-solid fa-arrow-left-long size-[16px]"></icon>Back</button>
-                <form action="{{ route('ocr') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="ocr_image" id="">
-                    <button type="submit" class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] transition-all duration-300 bg-dark text-secondary w-min text-nowrap" onclick=""><icon class="fa-solid fa-rotate-right size-[16px]"></icon>Reset Camera</button>
-                </form>
+                @csrf
+                <button type="submit" class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] transition-all duration-300 bg-dark text-secondary w-min"><icon class="fa-solid fa-arrow-left-long size-[16px]"></icon>Back</button>
+                <input type="file" name="ocr_image" id="">
+                <button type="button" class="flex items-center border-2 border-dark rounded-[6px] font-bold hover:bg-secondary hover:text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] transition-all duration-300 bg-dark text-secondary w-min text-nowrap" onclick=""><icon class="fa-solid fa-rotate-right size-[16px]"></icon>Reset Camera</button>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 
 @push('scripts')
 <script>
-    let $modal_form = $('#modal_form'), $input_employee_id = $('#employee_id'), $input_employee_name = $('#employees'), $modal_camera = $('#modal_camera')
+    let $modal_form = $('#modal_form'), $input_employee_id = $('#employee_id'), $input_employee_name = $('#employees'), $modal_camera = $('#modal_camera'), $form_ocr = $('#form_ocr'), $input_name = $('#input_name')
     let info = function(el) { el.removeClass('hidden') }
     let close_modal = function(el) { el.addClass('hidden') }
     let select_employee = function(id, name) {
@@ -173,6 +171,32 @@
         $input_employee_id.val(id)
         close_modal($modal_form)
     }
+    let ocr_proccess = function(string) {
+        let name = ''
+        let match = string.match(/Nama (.*?)\n/)
+        if (match && match[1]) {
+        let rawContent = match[1]
+        name = rawContent.replace(/[^a-zA-Z\s]/g, '').trim()
+        $input_name.val(name)
+        close_modal($modal_camera)
+  }
+    }
+    $form_ocr.submit((e) => {
+        console.log('jalan')
+        e.preventDefault()
+        let data = new FormData($form_ocr.get(0))
+        $.ajax({
+            url: '{{ route('ocr') }}',
+            type: 'post',
+            data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: (res) => ocr_proccess(res.ocrText)
+        }).fail((xhr) => {
+            console.log(xhr.responseText)
+        })
+    })
 
 </script>
 

@@ -21,7 +21,7 @@ class DocumentService
             if ($grayscale === true) {
                 $path = $folder . '/';
                 $gray_image = storage_path('app\\' . $path.$filename);
-                Image::read($file)->greyscale()->scale(width: 400)->save($gray_image);
+                Image::read($file)->greyscale()->scaleDown(width: 400)->save($gray_image);
                 return $path . $filename;
             } else {
                 return Storage::putFileAs($folder, $file, $filename);

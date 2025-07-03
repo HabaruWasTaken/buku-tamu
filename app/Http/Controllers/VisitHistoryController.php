@@ -64,16 +64,17 @@ class VisitHistoryController extends Controller
         $this->visitHistoryService->delete($id);
     }
 
-    public function export_excel()
+    public function export_excel(Request $request)
     {
-        return Excel::download(new VisitHistoriesExport, 'visit_histories.xlsx');
+        $visits = $this->visitHistoryService->search($request->all());
+        return Excel::download(new VisitHistoriesExport($visits), 'visit_histories.xlsx');
     }
 
     
 
-    public function export_pdf()
+    public function export_pdf(Request $request)
     {
-        $visits = $this->visitHistoryService->search();
+        $visits = $this->visitHistoryService->search($request->all());
 
         $pdf = Pdf::loadView('exports.visit_histories', [
             'visits' => $visits

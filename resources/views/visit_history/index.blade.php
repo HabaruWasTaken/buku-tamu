@@ -37,8 +37,8 @@
             <div class="group flex flex-col relative gap-[5px]">
                 <a class="flex items-center font-bold bg-secondary text-dark rounded-[6px] px-[16px] py-[6px] gap-[5px] outline-secondary outline-2 transition-all duration-300 hover:bg-dark hover:text-secondary" href=""><icon class="fa-solid fa-file-arrow-down text-[16px]"></icon>Export<icon class="fa-solid fa-angle-down text-[16px]"></icon></a>
                 <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute w-full top-0 pt-[40px] flex flex-col text-dark text-[16px] transition-all duration-300 shadow-lg/30 *:flex *:items-center *:transition-all *:duration-300 *:px-[10px] *:py-[5px] *:bg-secondary *:items-center *:border-2 *:border-secondary *:hover:text-secondary *:hover:bg-dark *:first:rounded-t-lg *:first:border-b-0 *:last:rounded-b-lg *:last:border-t-0">
-                    <a href="{{ route('visit_history.export_excel') }}" class=""><icon class="fa-solid fa-file-excel text-[16px] mr-[5px]"></icon>Excel</a>
-                    <a href="{{ route('visit_history.export_pdf') }}" class=""><icon class="fa-solid fa-file-pdf text-[16px] mr-[5px]"></icon>PDF</a>
+                    <a onclick="export_file('excel')" href="javascript:void(0)" class=""><icon class="fa-solid fa-file-excel text-[16px] mr-[5px]"></icon>Excel</a>
+                    <a onclick="export_file('pdf')" href="javascript:void(0)" class=""><icon class="fa-solid fa-file-pdf text-[16px] mr-[5px]"></icon>PDF</a>
                 </div>
             </div>
         </form>
@@ -91,6 +91,44 @@
                 init()
             }).fail((xhr)=>$table.html(xhr.responseText))
         }
+
+        let export_file = (ext) => {
+
+            let formData = get_form_data($form_search)
+            let baseUrl = ""
+
+            if (ext == 'excel'){
+                baseUrl += '{{ route('visit_history.export_excel') }}'
+            } else if (ext == 'pdf') {
+                baseUrl += '{{ route('visit_history.export_pdf') }}'
+            }
+            if (ext === "") return;
+
+            let queryString = $.param(formData)
+            let exportUrl = baseUrl
+            if (queryString) {
+                exportUrl += '?' + queryString
+            }
+
+            window.location.href = exportUrl
+        }
+
+        $('#exportExcelBtn').on('click', function(e) {
+            e.preventDefault()
+
+            var formData = getFormData()
+
+            var baseUrl = "{{ route('visit_history.export_excel') }}"
+
+            var queryString = $.param(formData)
+
+            var exportUrl = baseUrl
+            if (queryString) {
+                exportUrl += '?' + queryString
+            }
+
+            window.location.href = exportUrl
+        });
 
         $form_search.submit((e) => {
             e.preventDefault();

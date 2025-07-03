@@ -77,9 +77,6 @@
         let url = base_url
         let data = new FormData($form_info.get(0))
         if (id !== '') url += '/' + id + '?_method=put'
-        console.log(data.get('name'))
-        console.log(data.get('position'))
-        console.log(data.get('division'))
         $.ajax({
             url,
             type: 'post',
