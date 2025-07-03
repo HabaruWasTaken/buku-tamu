@@ -1,4 +1,4 @@
-<div class="min-w-full border-3 bg-light text-dark text-center border-secondary rounded-[10px] overflow-x-auto">
+<div class="min-w-full border-3 bg-light text-dark border-secondary rounded-[10px] overflow-x-auto">
     <table class="w-full text-dark text-[13px]">
         <thead class="bg-secondary">
             <tr class="*:text-start *:py-[8px] *:text-[14px] *:first:rounded-tl-[7px] *:last:rounded-tr-[7px] *:first:pl-[20px]">

@@ -10,6 +10,11 @@ Breadcrumbs::for('dashboard', function (Trail $trail) {
     $trail->push('Dashboard', route('dashboard'));
 });
 
+Breadcrumbs::for('report', function(Trail $trail){
+    $trail->parent('dashboard');
+    $trail->push('Report', route('report'));
+});
+
 // Employee Index
 Breadcrumbs::for('employee.index', function (Trail $trail) {
     $trail->parent('dashboard');

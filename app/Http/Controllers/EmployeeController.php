@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeStoreRequest;
 use App\Services\EmployeeService;
 use App\Services\DocumentService;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class EmployeeController extends Controller
         return view('employee._form');
     }
 
-    public function store(Request $request)
+    public function store(EmployeeStoreRequest $request)
     {
         $no_id = $this->employeeService->getID($request);
         $request->merge(['no_id' => $no_id]);
@@ -48,7 +49,7 @@ class EmployeeController extends Controller
         return view('employee._form', compact('employee'));
     }
 
-    public function update(Request $request, $id)
+    public function update(EmployeeStoreRequest $request, $id)
     {
         $no_id = $this->employeeService->getID($request, $id);
         $request->merge(['no_id' => $no_id]);

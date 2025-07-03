@@ -18,7 +18,7 @@ class VisitHistoriesExport implements FromCollection, WithHeadings
             return [
                 format_date($visit->date),
                 format_time($visit->time),
-                $visit->time_out ?? '-',
+                format_time($visit->time_out) ?? '-',
                 $visit->name,
                 $visit->company,
                 $visit->phone,

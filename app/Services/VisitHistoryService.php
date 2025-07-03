@@ -10,6 +10,9 @@ class VisitHistoryService extends Service
     {
         $visitHistory = VisitHistory::orderBy('date', 'desc');
 
+        $time_order = $params['time_order'] ?? 'desc';
+        if ($time_order !== '') $visitHistory = $visitHistory->orderBy('time', $time_order);
+
         $name = $params['name'] ?? '';
         if ($name !== '') $visitHistory = $visitHistory->where('name', 'like', "%$name%");
 
@@ -80,7 +83,6 @@ class VisitHistoryService extends Service
             $month = $i;
             if ($month < 10) $month = "0" . $month;
             $count = $this->search(['month' => $month, 'year' => $year])->count();
-            // if ($count !== 0) {
             if (true) {
                 array_push($data, $count);
                 array_push($months, list_bulan()[$i-1]);

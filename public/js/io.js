@@ -51,13 +51,22 @@ let error_handle = (data) => {
         let errors = JSON.parse(data);
         errors = errors.errors;
         if (errors === undefined) console.log(data);
-        $('.alert.alert-danger').addClass('d-none');
-        $.each(errors, (i, value) => {
-            $('#' + i + '_error').removeClass('d-none');
-            $('#' + i + '_error_content').html(value.join(', '));
+        $("error-msg").addClass("hidden");
+        console.log(errors);
+        $.each(errors, (input, value) => {
+            console.log(value);
+            $("#" + input + "_error").removeClass("hidden");
+            $("#" + input + "_error").html(value.join(", "));
         });
-    } catch (e) { }
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+let test = (a) => {
+    console.log(a)
 }
+
 let init_select2 = () => {
     const elements = document.querySelectorAll('[data-control="select2"], [data-kt-select2="true"]');
     elements.forEach( (element) => {

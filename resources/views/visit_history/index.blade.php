@@ -72,6 +72,7 @@
             let data = get_form_data($form_search)
             data.paginate = 10
             data.page = selected_page = get_selected_page(page, selected_page)
+            console.log(data)
             $.post(base_url + '/search?' + params_url, data, (result) => $table.html(result)).fail((xhr) => $table.html(xhr.responseText))
         }
 

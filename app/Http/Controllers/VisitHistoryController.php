@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\VisitHistoriesExport;
+use App\Http\Requests\VisitHistoryStoreRequest;
 use App\Services\VisitHistoryService;
 use App\Services\EmployeeService;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -37,11 +38,12 @@ class VisitHistoryController extends Controller
         return view('visit_history._form', compact('employees'));
     }
 
-    public function store(Request $request)
+    public function store(VisitHistoryStoreRequest $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $request->merge([
-            'date' => unformat_date($request->date),
-            'time' => format_time($request->time, false)
+            'date' => date('Y-m-d'),
+            'time' => date('H:i:s')
         ]);
         return $this->visitHistoryService->store($request->all());
     }
@@ -52,7 +54,7 @@ class VisitHistoryController extends Controller
         return view('visit_history._form', compact('visitHistory'));
     }
 
-    public function update(Request $request, $id)
+    public function update(VisitHistoryStoreRequest $request, $id)
     {
         return $this->visitHistoryService->update($request->all(), $id);
     }
